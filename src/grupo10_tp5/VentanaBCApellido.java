@@ -130,12 +130,12 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jtApellidoKeyReleased
-/*
+
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
-        this.dipose();
+        this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
-*/
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
