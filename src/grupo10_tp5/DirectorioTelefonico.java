@@ -12,7 +12,13 @@ import javax.swing.JInternalFrame;
 
 /**
  *
- * @author matia
+ * @author Grupo10 TP5
+ * Altamirano Karina
+ * Gianfranco Antonacci Matías
+ * Bequis Marcos Ezequiel
+ * Dave  Natalia
+ * Quiroga Dorzan Alejo
+ * Franzinni Tatiana
  */
 public class DirectorioTelefonico extends javax.swing.JFrame {
     // ArrayList de las 

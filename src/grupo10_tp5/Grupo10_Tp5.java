@@ -7,7 +7,7 @@ package grupo10_tp5;
 
 /**
  *
- * @author Grupo10 TP3 Ejercicio 1
+ * @author Grupo10 TP5
  * Altamirano Karina
  * Gianfranco Antonacci Matías
  * Bequis Marcos Ezequiel

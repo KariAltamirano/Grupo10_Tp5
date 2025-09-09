@@ -9,7 +9,13 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
- * @author matia
+ * @author Grupo10 TP5
+ * Altamirano Karina
+ * Gianfranco Antonacci Matías
+ * Bequis Marcos Ezequiel
+ * Dave  Natalia
+ * Quiroga Dorzan Alejo
+ * Franzinni Tatiana
  */
 public class frmAgregarCiudad extends javax.swing.JInternalFrame {
 
