@@ -130,12 +130,12 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jtApellidoKeyReleased
-
+/*
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
         this.dipose();
     }//GEN-LAST:event_jbSalirActionPerformed
-
+*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -157,10 +157,6 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     modelo.addColumn("Ciudad");
     modelo.addColumn("Teléfono"); 
     jTableDatos.setModel(modelo);
-    }
-
-    private void dipose() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
