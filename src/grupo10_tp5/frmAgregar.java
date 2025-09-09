@@ -16,7 +16,10 @@ public class frmAgregar extends javax.swing.JInternalFrame {
      * Creates new form VentanaAgregarC
      */
     public frmAgregar() {
+        
         initComponents();
+        llenarComboCiudad();
+        
     }
 
     /**
@@ -40,7 +43,9 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         txt_nombre = new javax.swing.JTextField();
         txt_apellido = new javax.swing.JTextField();
         txt_domicilio = new javax.swing.JTextField();
-        lc_listaPaises = new javax.swing.JComboBox<>();
+        lc_listaCiudades = new javax.swing.JComboBox<>();
+        btn_agregarCiudad = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         label_telefono = new javax.swing.JLabel();
         txt_telefono = new javax.swing.JTextField();
@@ -80,10 +85,23 @@ public class frmAgregar extends javax.swing.JInternalFrame {
 
         label_domicilio.setText("Domicilio:");
 
-        lc_listaPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" }));
-        lc_listaPaises.addActionListener(new java.awt.event.ActionListener() {
+        lc_listaCiudades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lc_listaPaisesActionPerformed(evt);
+                lc_listaCiudadesActionPerformed(evt);
+            }
+        });
+
+        btn_agregarCiudad.setText("Agregar ciudad");
+        btn_agregarCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarCiudadActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -101,13 +119,18 @@ public class frmAgregar extends javax.swing.JInternalFrame {
                     .addComponent(label_domicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txt_nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                         .addComponent(txt_apellido, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(txt_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lc_listaPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 22, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lc_listaCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_agregarCiudad))
+                    .addComponent(txt_domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,12 +150,14 @@ public class frmAgregar extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_ciudad)
-                    .addComponent(lc_listaPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lc_listaCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_agregarCiudad)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_domicilio)
                     .addComponent(txt_domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -168,6 +193,11 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         });
 
         btn_salir.setText("Salir");
+        btn_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,15 +227,15 @@ public class frmAgregar extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_salir))
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lc_listaPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lc_listaPaisesActionPerformed
+    private void lc_listaCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lc_listaCiudadesActionPerformed
 
-    }//GEN-LAST:event_lc_listaPaisesActionPerformed
+    }//GEN-LAST:event_lc_listaCiudadesActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         //Comprueba que ningun campo este vacio
@@ -221,31 +251,60 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         //Apellido
         String apellido = txt_apellido.getText();
         //Ciudad
-        String ciudad = lc_listaPaises.getSelectedItem().toString();
+        String ciudad = lc_listaCiudades.getSelectedItem().toString();
         //Domicilio
         String domicilio = txt_domicilio.getText();
         //Telefono
         long telefono = Long.parseLong(txt_telefono.getText());
 
-        System.out.println(dni);
-        System.out.println(nombre);
-        System.out.println(apellido);
-        System.out.println(ciudad);
-        System.out.println(domicilio);
-        System.out.println(telefono);
-        System.out.println("");
+
     }//GEN-LAST:event_btn_guardarActionPerformed
 
-    private void llenarComboCiudad() {
-        String[] ciudades = {"Mendoza", "San Luis", "San Juan", "Córdoba", "Buenos Aires"};
+    private void btn_agregarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarCiudadActionPerformed
+        // Crear una instancia del formulario AgregarCiudad
+        frmAgregarCiudad ventana = new frmAgregarCiudad();
 
+        this.getParent().add(ventana);
+
+        // Centrar la ventana en el Escritorio
+        int x = (this.getWidth() - ventana.getWidth()) / 2;
+        int y = (this.getHeight() - ventana.getHeight()) / 2;
+        ventana.setLocation(x, y);
+
+        // Mostrar la ventana
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btn_agregarCiudadActionPerformed
+
+    private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_salirActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        llenarComboCiudad();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void llenarComboCiudad() {
+        String[] ciudades = {"Mendoza", "San Luis", "San Juan", "Buenos Aires"};
+        
+        if (DirectorioTelefonico.ciudades.isEmpty()) {
+            for (String ciudad : ciudades) {
+                DirectorioTelefonico.ciudades.add(ciudad);
+            }
+        }
+        
+        //Vacia el combobox
+        lc_listaCiudades.removeAllItems();
+        
         for (String ciudad : DirectorioTelefonico.ciudades) {
-            lc_listaPaises.addItem(ciudad);  // cmbCiudad es tu JComboBox
+            lc_listaCiudades.addItem(ciudad);
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_agregarCiudad;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_salir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -256,11 +315,12 @@ public class frmAgregar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label_domicilio;
     private javax.swing.JLabel label_nombre;
     private javax.swing.JLabel label_telefono;
-    private javax.swing.JComboBox<String> lc_listaPaises;
+    private javax.swing.JComboBox<String> lc_listaCiudades;
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_dni;
     private javax.swing.JTextField txt_domicilio;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
+
 }

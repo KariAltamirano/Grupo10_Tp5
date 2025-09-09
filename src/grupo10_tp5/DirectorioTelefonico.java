@@ -15,7 +15,10 @@ import javax.swing.JInternalFrame;
  * @author matia
  */
 public class DirectorioTelefonico extends javax.swing.JFrame {
+    // ArrayList de las 
     public static ArrayList<String> ciudades = new ArrayList<>();
+    
+    
     /**
      * Creates new form DirectorioTelefonico
      */
@@ -202,7 +205,7 @@ public class DirectorioTelefonico extends javax.swing.JFrame {
     private void jmiACiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiACiudadActionPerformed
         jdEscritorio.removeAll();
         jdEscritorio.repaint();
-        VentanaACiudad ventanaACiudad = new VentanaACiudad();
+        frmAgregarCiudad ventanaACiudad = new frmAgregarCiudad();
         mostrarCentrado(ventanaACiudad);
         ventanaACiudad.setVisible(true);
         jdEscritorio.moveToFront(ventanaACiudad);
@@ -273,4 +276,6 @@ public class DirectorioTelefonico extends javax.swing.JFrame {
         //4)Posiciona en el centro
         frame.setLocation(x,y);
     }
+    
+  
 }
