@@ -78,6 +78,11 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         jScrollPane2.setViewportView(jlListaResultados);
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,6 +131,11 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         
     }//GEN-LAST:event_jtApellidoKeyReleased
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // TODO add your handling code here:
+        this.dipose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -147,6 +157,10 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     modelo.addColumn("Ciudad");
     modelo.addColumn("Teléfono"); 
     jTableDatos.setModel(modelo);
+    }
+
+    private void dipose() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
