@@ -4,6 +4,10 @@
  */
 package grupo10_tp5;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.swing.JInternalFrame;
 
 /**
@@ -11,7 +15,7 @@ import javax.swing.JInternalFrame;
  * @author matia
  */
 public class DirectorioTelefonico extends javax.swing.JFrame {
-
+    public static ArrayList<String> ciudades = new ArrayList<>();
     /**
      * Creates new form DirectorioTelefonico
      */
@@ -52,7 +56,7 @@ public class DirectorioTelefonico extends javax.swing.JFrame {
         );
         jdEscritorioLayout.setVerticalGroup(
             jdEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGap(0, 578, Short.MAX_VALUE)
         );
 
         jmbMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -171,7 +175,7 @@ public class DirectorioTelefonico extends javax.swing.JFrame {
     private void jmiAClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAClienteActionPerformed
         jdEscritorio.removeAll();
         jdEscritorio.repaint();
-        VentanaACliente ventanaACliente = new VentanaACliente();
+        frmAgregar ventanaACliente = new frmAgregar();
         mostrarCentrado(ventanaACliente);
         ventanaACliente.setVisible(true);
         jdEscritorio.moveToFront(ventanaACliente);
