@@ -91,6 +91,12 @@ public class frmAgregar extends javax.swing.JInternalFrame {
 
         label_domicilio.setText("Domicilio:");
 
+        txt_dni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_dniKeyReleased(evt);
+            }
+        });
+
         lc_listaCiudades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lc_listaCiudadesActionPerformed(evt);
@@ -171,6 +177,12 @@ public class frmAgregar extends javax.swing.JInternalFrame {
 
         label_telefono.setText("Teléfono:");
 
+        txt_telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_telefonoKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -249,10 +261,10 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         if (txt_dni.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() || txt_apellido.getText().trim().isEmpty() || txt_domicilio.getText().trim().isEmpty() || txt_telefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ningún campo puede quedar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
-        }
+        }       
 
         //DNI
-        long dni = Long.parseLong(txt_dni.getText());
+        long dni = Long.parseLong(txt_dni.getText());            
         //Nombre
         String nombre = txt_nombre.getText();
         //Apellido
@@ -263,8 +275,7 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         String domicilio = txt_domicilio.getText();
         //Telefono
         long telefono = Long.parseLong(txt_telefono.getText());
-
-
+        
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_agregarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarCiudadActionPerformed
@@ -289,6 +300,26 @@ public class frmAgregar extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         llenarComboCiudad();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    //Telefono Casilla Validación
+    private void txt_telefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telefonoKeyReleased
+        try{
+            long telefono = Long.parseLong(txt_telefono.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Telefono solo acepta Números.");
+            txt_telefono.setText("");
+        }
+    }//GEN-LAST:event_txt_telefonoKeyReleased
+
+    //Dni Casilla Validación
+    private void txt_dniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dniKeyReleased
+        try{
+            long dni = Long.parseLong(txt_dni.getText());     
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "DNI solo acepta Números.");
+            txt_dni.setText("");
+        }
+    }//GEN-LAST:event_txt_dniKeyReleased
 
     private void llenarComboCiudad() {
         String[] ciudades = {"Mendoza", "San Luis", "San Juan", "Buenos Aires"};

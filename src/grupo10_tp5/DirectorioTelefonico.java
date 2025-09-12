@@ -4,10 +4,7 @@
  */
 package grupo10_tp5;
 
-import java.awt.List;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeSet;
 import javax.swing.JInternalFrame;
 
 /**
@@ -16,7 +13,7 @@ import javax.swing.JInternalFrame;
  * Altamirano Karina
  * Gianfranco Antonacci Matías
  * Bequis Marcos Ezequiel
- * Dave  Natalia
+ * Dave Natalia
  * Quiroga Dorzan Alejo
  * Franzinni Tatiana
  */
@@ -24,7 +21,7 @@ public class DirectorioTelefonico extends javax.swing.JFrame {
     // ArrayList de las 
     public static ArrayList<String> ciudades = new ArrayList<>();
     
-    
+
     /**
      * Creates new form DirectorioTelefonico
      */

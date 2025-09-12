@@ -195,6 +195,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_dni">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_dniKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_nombre">
         </Component>
@@ -278,6 +281,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_telefono">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_telefonoKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
