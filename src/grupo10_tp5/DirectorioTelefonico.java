@@ -4,7 +4,6 @@
  */
 package grupo10_tp5;
 
-import java.util.ArrayList;
 import javax.swing.JInternalFrame;
 
 /**
@@ -18,16 +17,14 @@ import javax.swing.JInternalFrame;
  * Franzinni Tatiana
  */
 public class DirectorioTelefonico extends javax.swing.JFrame {
-    // ArrayList de las 
-    public static ArrayList<String> ciudades = new ArrayList<>();
-    
-
-    /**
-     * Creates new form DirectorioTelefonico
+     /* Creates new form DirectorioTelefonico
      */
     public DirectorioTelefonico() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        //Precarga ciudades
+        Directorio.precargarCiudades();
     }
 
     /**

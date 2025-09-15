@@ -13,14 +13,15 @@ package grupo10_tp5;
  * Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class Contacto {
-    private int dni;
+
+    private long dni;
     private String nombre;
     private String apellido;
     private String ciudad;
     private String direccion;
     private long telefono;
 
-    public Contacto(int dni, String nombre, String apellido, String ciudad, String direccion, long telefono) {
+    public Contacto(long dni, String nombre, String apellido, String ciudad, String direccion, long telefono) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -29,11 +30,11 @@ public class Contacto {
         this.telefono = telefono;
     }
 
-    public int getDni() {
+    public long getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(long dni) {
         this.dni = dni;
     }
 
@@ -76,9 +77,17 @@ public class Contacto {
     public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
-    
+
+    public String datosContacto() {
+        return "\nDNI: " + dni + "\n"
+                + "Nombre: " + nombre + " " + apellido + "\n"
+                + "Ciudad: " + ciudad + "\n"
+                + "Direccion: " + direccion + "\n"
+                + "Telefono: " + telefono + "\n------------------------------------";
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return dni + " " + telefono;
     }
 }

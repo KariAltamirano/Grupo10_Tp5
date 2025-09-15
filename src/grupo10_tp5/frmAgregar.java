@@ -8,13 +8,8 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Grupo10 TP5
- * Altamirano Karina
- * Gianfranco Antonacci Matías
- * Bequis Marcos Ezequiel
- * Dave  Natalia
- * Quiroga Dorzan Alejo
- * Franzinni Tatiana
+ * @author Grupo10 TP5 Altamirano Karina Gianfranco Antonacci Matías Bequis
+ * Marcos Ezequiel Dave Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class frmAgregar extends javax.swing.JInternalFrame {
 
@@ -22,10 +17,10 @@ public class frmAgregar extends javax.swing.JInternalFrame {
      * Creates new form VentanaAgregarC
      */
     public frmAgregar() {
-        
+
         initComponents();
         llenarComboCiudad();
-        
+
     }
 
     /**
@@ -261,10 +256,10 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         if (txt_dni.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() || txt_apellido.getText().trim().isEmpty() || txt_domicilio.getText().trim().isEmpty() || txt_telefono.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ningún campo puede quedar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
-        }       
+        }
 
         //DNI
-        long dni = Long.parseLong(txt_dni.getText());            
+        long dni = Long.parseLong(txt_dni.getText());
         //Nombre
         String nombre = txt_nombre.getText();
         //Apellido
@@ -275,7 +270,25 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         String domicilio = txt_domicilio.getText();
         //Telefono
         long telefono = Long.parseLong(txt_telefono.getText());
+
+        // Creo el contacto con los datos ingresados
+        Contacto nuevoContacto = new Contacto(dni, nombre, apellido, ciudad, domicilio, telefono);
+
+        // Llamo al metodo para agregar al TreeMap
+        boolean agregar = Directorio.agregarContacto(telefono, nuevoContacto);
+
+        if (agregar) {
+            JOptionPane.showMessageDialog(null, "Contacto agregado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "El número de teléfono ya existe en el directorio");
+        }
         
+        // Comprobacion de los contactos agregados
+        for (int i = 0; i < 30; i++) {
+            System.out.println("");
+        }
+        System.out.println("Agregando clientes...\n");
+        Directorio.mostrarContactos();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_agregarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarCiudadActionPerformed
@@ -303,41 +316,33 @@ public class frmAgregar extends javax.swing.JInternalFrame {
 
     //Telefono Casilla Validación
     private void txt_telefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telefonoKeyReleased
-        try{
+        try {
             long telefono = Long.parseLong(txt_telefono.getText());
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Telefono solo acepta Números.");
             txt_telefono.setText("");
         }
     }//GEN-LAST:event_txt_telefonoKeyReleased
 
-    //Dni Casilla Validación
+    //DNI Casilla Validación
     private void txt_dniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dniKeyReleased
-        try{
-            long dni = Long.parseLong(txt_dni.getText());     
-        }catch(NumberFormatException e){
+        try {
+            long dni = Long.parseLong(txt_dni.getText());
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "DNI solo acepta Números.");
             txt_dni.setText("");
         }
     }//GEN-LAST:event_txt_dniKeyReleased
 
     private void llenarComboCiudad() {
-        String[] ciudades = {"Mendoza", "San Luis", "San Juan", "Buenos Aires"};
-        
-        if (DirectorioTelefonico.ciudades.isEmpty()) {
-            for (String ciudad : ciudades) {
-                DirectorioTelefonico.ciudades.add(ciudad);
-            }
-        }
-        
         //Vacia el combobox
         lc_listaCiudades.removeAllItems();
-        
-        for (String ciudad : DirectorioTelefonico.ciudades) {
+
+        for (String ciudad : Directorio.obtenerCiudades()) {
             lc_listaCiudades.addItem(ciudad);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregarCiudad;
     private javax.swing.JButton btn_guardar;

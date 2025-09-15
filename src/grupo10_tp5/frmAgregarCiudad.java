@@ -132,7 +132,7 @@ public class frmAgregarCiudad extends javax.swing.JInternalFrame {
         //Boolean para verificar si la ciudad existe
         boolean existe = false;
 
-        for (String aux : DirectorioTelefonico.ciudades) {
+        for (String aux : Directorio.obtenerCiudades()) {
             if (aux.equalsIgnoreCase(ciudad)) {
                 existe = true;
             }
@@ -144,9 +144,11 @@ public class frmAgregarCiudad extends javax.swing.JInternalFrame {
                 tieneNumero = true;
             }
         }
-
-        if (tieneNumero == false && existe == false) {
-            DirectorioTelefonico.ciudades.add(ciudad);
+        
+        if (txt_nombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede quedar el campo vacio.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (tieneNumero == false && existe == false) {
+            Directorio.agregarCiudad(ciudad);
             JOptionPane.showMessageDialog(this, "Ciudad cargada con exito.", " ", JOptionPane.INFORMATION_MESSAGE);
         } else if (tieneNumero == true) {
             JOptionPane.showMessageDialog(this, "El nombre de la ciudad no puede contener numeros.", "Error", JOptionPane.ERROR_MESSAGE);
