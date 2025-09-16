@@ -143,7 +143,7 @@ public class Directorio {
 
     }
 
-    public Contacto buscarPorApellido(String apellido) {
+    public static Contacto buscarPorApellido(String apellido) {
 
         for (Contacto c : directorio.values()) {
             if (c.getApellido().equalsIgnoreCase(apellido)) {
@@ -151,6 +151,10 @@ public class Directorio {
             }
         }
         return null;
+    }
+    
+    public static int sizeMap(){
+        return directorio.size();
     }
 
 }

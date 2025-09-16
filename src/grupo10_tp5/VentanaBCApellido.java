@@ -25,7 +25,6 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         }
     };
     DefaultListModel<String> modeloLista = new DefaultListModel<>();
-    private Set<String> apellidosEncontrados = new TreeSet<>();
 
     /**
      * Creates new form VentanaBCApellido
@@ -34,7 +33,7 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         configurarListaResultados();
-
+        llenarListaTelefonos();
     }
 
     /**
@@ -65,11 +64,6 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Apellido: ");
 
-        jtApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtApellidoActionPerformed(evt);
-            }
-        });
         jtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtApellidoKeyReleased(evt);
@@ -146,17 +140,20 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Jtext Apellido:
     private void jtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtApellidoKeyReleased
-
-        // TODO add your handling code here:
-        borrarFilas();
         String textoApellido = jtApellido.getText().trim();
+        // TODO add your handling code here:
+        
+        if(textoApellido.isEmpty()){
+            borrarFilas();
+            
+        }
+        
         //Solo buscar si hay texto ingresado
         if (!textoApellido.isEmpty()) {
-            for (Contacto c : DirectorioTelefonico.listaContacto) {
-
+            for (Contacto c : Directorio.getTodosLosContactos()) {
                 if (c.getApellido().toLowerCase().startsWith(textoApellido.toLowerCase())) {
-
                     modelo.addRow(new Object[]{
                         c.getDni(),
                         c.getApellido(),
@@ -167,6 +164,12 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
                     });
                 }
             }
+            
+            for (int i = 0; i < modeloLista.getSize(); i++) {
+                
+            }
+            
+            
         }
     }//GEN-LAST:event_jtApellidoKeyReleased
 
@@ -187,10 +190,6 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_jListaResultadosValueChanged
-
-    private void jtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtApellidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -221,8 +220,9 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
             modelo.removeRow(f);
         } */
         modelo.setRowCount(0);
+        modeloLista.clear();
     }
-
+  
     private void configurarListaResultados() {
         jListaResultados.setModel(modeloLista);
     }
@@ -241,6 +241,17 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
                     c.getTelefono()
                 });
             }
+        }
+    }
+    
+    public void llenarListaTelefonos(){
+        int aux = 0;
+        System.out.println("-----------Duplicar Lista-----------");
+        System.out.println(Directorio.sizeMap());
+        for (Contacto c : Directorio.getTodosLosContactos() ) {
+            modeloLista.add(aux, c.getApellido());
+            aux++;
+            System.out.println("["+modeloLista+"]");
         }
     }
 }
