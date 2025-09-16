@@ -25,13 +25,21 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         return false;
     }
 };
-  
+private DefaultListModel<String> model(){
+    DefaultListModel<String>model = (DefaultListModel<String>)jListaResultados.getModel();
+    return null;
+
+};
+
+
+ 
     /**
      * Creates new form VentanaBCApellido
      */
     public VentanaBCApellido() {
         initComponents();
         armarCabecera();
+        limpiarJList();
     }
 
     /**
@@ -49,7 +57,7 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDatos = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jlListaResultados = new javax.swing.JList<>();
+        jListaResultados = new javax.swing.JList<>();
         jbSalir = new javax.swing.JButton();
 
         setClosable(true);
@@ -79,12 +87,12 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         ));
         jScrollPane1.setViewportView(jTableDatos);
 
-        jlListaResultados.setModel(new javax.swing.AbstractListModel<String>() {
+        jListaResultados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jlListaResultados);
+        jScrollPane2.setViewportView(jListaResultados);
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -167,11 +175,11 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JList<String> jListaResultados;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableDatos;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JList<String> jlListaResultados;
     private javax.swing.JTextField jtApellido;
     // End of variables declaration//GEN-END:variables
 
@@ -185,10 +193,7 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     modelo.addColumn("Teléfono"); 
     jTableDatos.setModel(modelo);
     }
-    
-   
-    
-   
+ 
         private void borrarFilas(){
     
         int filas= jTableDatos.getRowCount()-1;
@@ -198,5 +203,12 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         }
     
     }
-   
+
+  private void limpiarJList(){
+  if (jListaResultados.getModel() instanceof DefaultListModel){
+        DefaultListModel<String> model = (DefaultListModel<String>) jListaResultados.getModel();
+        model.clear();
+        }
+  
+  }
 }

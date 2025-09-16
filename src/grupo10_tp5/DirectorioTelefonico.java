@@ -4,7 +4,9 @@
  */
 package grupo10_tp5;
 
+import java.awt.List;
 import java.util.TreeSet;
+import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
 import java.util.Iterator;
 /**
@@ -298,6 +300,6 @@ public Contacto borrarCliente(long dni) {
     listaContacto.add(new Contacto(35698741, "Agustina", "Paez", "San Luis", "Santa Fe23", 266498745));
         
     }
-    
+
   
 }
