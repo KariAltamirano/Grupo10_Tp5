@@ -69,6 +69,12 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Domicilio:");
 
+        jtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtTelefonoKeyReleased(evt);
+            }
+        });
+
         jtCiudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtCiudadActionPerformed(evt);
@@ -82,11 +88,6 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
             }
         });
 
-        jListTelefono.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jListTelefonoValueChanged(evt);
-            }
-        });
         jScrollPane2.setViewportView(jListTelefono);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,9 +179,11 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void jListTelefonoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListTelefonoValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jListTelefonoValueChanged
+    private void jtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTelefonoKeyReleased
+         // TODO add your handling code here:
+         
+     
+    }//GEN-LAST:event_jtTelefonoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
