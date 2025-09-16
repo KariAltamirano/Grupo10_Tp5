@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,7 +12,7 @@ package grupo10_tp5;
  * Altamirano Karina Gianfranco Antonacci Matías Bequis Marcos Ezequiel Dave
  * Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
-public class Contacto {
+public class Contacto implements Comparable <Contacto> {
 
     private long dni;
     private String nombre;
@@ -86,8 +86,22 @@ public class Contacto {
                 + "Telefono: " + telefono + "\n------------------------------------";
     }
 
+    
     @Override
     public String toString() {
         return dni + " " + telefono;
+    }
+
+    @Override
+    public int compareTo(Contacto t) {
+          
+        if (dni == t.dni){
+            return 0;
+        }else if (dni>t.dni){
+    
+            return 1;
+        }else{ 
+            return -1;
+        }
     }
 }

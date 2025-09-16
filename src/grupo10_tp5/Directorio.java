@@ -23,10 +23,12 @@ public class Directorio {
 
     private static TreeMap<Long, Contacto> directorio = new TreeMap<>();
     private static TreeSet<String> ciudades = new TreeSet<>();
+    private static TreeSet<String> apellidos= new TreeSet<>();
 
-    public Directorio(TreeMap<Long, Contacto> directorio, TreeSet<String> ciudades) {
+    public Directorio(TreeMap<Long, Contacto> directorio, TreeSet<String> ciudades, TreeSet <String> apellidos) {
         this.directorio = directorio;
         this.ciudades = ciudades;
+        this.apellidos= apellidos;
     }
 
     public Directorio() {
@@ -57,6 +59,7 @@ public class Directorio {
         }
         return telefonos;
     }
+  
 
     public ArrayList<Contacto> buscarContactos(String ciudad) {
         ArrayList<Contacto> contactos = new ArrayList<>();
@@ -116,4 +119,13 @@ public class Directorio {
         }
 
     }
+   /* public Contacto buscarPorApellido(String apellido){
+    
+            for (Contacto c: directorio.values()){
+                if (c.getApellido().equalsIgnoreCase(apellido))
+            return c;
+            } 
+        return null;
+      }*/
+    
 }

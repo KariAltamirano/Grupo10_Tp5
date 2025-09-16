@@ -4,11 +4,19 @@
  */
 package grupo10_tp5;
 
+import java.util.Set;
+import java.util.TreeSet;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author matia
+ * @author GRUPO 10
+ *
+ * Altamirano Karina Gianfranco Antonacci Matías Bequis Marcos Ezequiel Dave
+ * Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class VentanaBCApellido extends javax.swing.JInternalFrame {
 private DefaultTableModel modelo=new DefaultTableModel(){
@@ -17,6 +25,7 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         return false;
     }
 };
+  
     /**
      * Creates new form VentanaBCApellido
      */
@@ -128,7 +137,25 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     private void jtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtApellidoKeyReleased
     
         // TODO add your handling code here:
+               borrarFilas();
+               String textoApellido = jtApellido.getText().trim();
+               //Solo buscar si hay texto ingresado
+               if (!textoApellido.isEmpty()){
+                for (Contacto c:DirectorioTelefonico.listaContacto){
         
+                        if(c.getApellido().toLowerCase().startsWith(textoApellido.toLowerCase())){
+                
+                                 modelo.addRow(new Object []{
+                                        c.getDni(),
+                                        c.getApellido(),
+                                        c.getNombre(),
+                                        c.getDireccion(),
+                                        c.getCiudad(),
+                                        c.getTelefono()
+                                 });
+                        }
+                }
+               }
     }//GEN-LAST:event_jtApellidoKeyReleased
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -158,5 +185,18 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     modelo.addColumn("Teléfono"); 
     jTableDatos.setModel(modelo);
     }
-
+    
+   
+    
+   
+        private void borrarFilas(){
+    
+        int filas= jTableDatos.getRowCount()-1;
+        for(int f=filas;f>=0;f--){
+            modelo.removeRow(f);
+        
+        }
+    
+    }
+   
 }

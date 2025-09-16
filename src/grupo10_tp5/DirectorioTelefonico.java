@@ -4,6 +4,7 @@
  */
 package grupo10_tp5;
 
+import java.util.TreeSet;
 import javax.swing.JInternalFrame;
 
 /**
@@ -17,11 +18,13 @@ import javax.swing.JInternalFrame;
  * Franzinni Tatiana
  */
 public class DirectorioTelefonico extends javax.swing.JFrame {
-     /* Creates new form DirectorioTelefonico
+public static TreeSet <Contacto> listaContacto=new TreeSet<>();
+    /* Creates new form DirectorioTelefonico
      */
     public DirectorioTelefonico() {
         initComponents();
         setLocationRelativeTo(null);
+        cargarContactos();
         
         //Precarga ciudades
         Directorio.precargarCiudades();
@@ -275,6 +278,11 @@ public class DirectorioTelefonico extends javax.swing.JFrame {
         int y = Math.max(0,(desk.height - frm.height) / 2);
         //4)Posiciona en el centro
         frame.setLocation(x,y);
+    }
+    private void cargarContactos(){
+    listaContacto.add(new Contacto(33214569, "Carlos", "Oviedo", "San Luis", "San Juan 123", 266425896));
+    listaContacto.add(new Contacto(35698741, "Agustina", "Paez", "San Luis", "Santa Fe23", 266498745));
+        
     }
     
   
