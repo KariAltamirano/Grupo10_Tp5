@@ -6,7 +6,7 @@ package grupo10_tp5;
 
 import java.util.TreeSet;
 import javax.swing.JInternalFrame;
-
+import java.util.Iterator;
 /**
  *
  * @author Grupo10 TP5
@@ -29,6 +29,20 @@ public static TreeSet <Contacto> listaContacto=new TreeSet<>();
         //Precarga ciudades
         Directorio.precargarCiudades();
     }
+   
+
+public Contacto borrarCliente(long dni) {
+    Iterator<Contacto> it = listaContacto.iterator();
+    while (it.hasNext()) {
+        Contacto c = it.next();
+        if (c.getDni() == dni) {
+            it.remove(); // elimina de forma segura durante la iteración
+            return c; // devuelve el contacto eliminado
+        }
+    }
+    return null; // si no se encuentra
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,7 +213,7 @@ public static TreeSet <Contacto> listaContacto=new TreeSet<>();
     private void jmiBorrarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBorrarCActionPerformed
         jdEscritorio.removeAll();
         jdEscritorio.repaint();
-        VentanaBorrarC ventanaBorrarC = new VentanaBorrarC();
+        VentanaBorrarC ventanaBorrarC = new VentanaBorrarC(this);
         mostrarCentrado(ventanaBorrarC);
         ventanaBorrarC.setVisible(true);
         jdEscritorio.moveToFront(ventanaBorrarC);
