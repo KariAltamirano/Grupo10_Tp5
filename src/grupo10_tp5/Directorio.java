@@ -77,7 +77,7 @@ public class Directorio {
         return contactos;
     }
 
-    public boolean borrarContacto(Long telefono) {
+    public static boolean borrarContacto(Long telefono) {
         if (directorio.containsKey(telefono)) {
             directorio.remove(telefono);
             return true;
@@ -94,8 +94,9 @@ public class Directorio {
         }
     }
 
-    public Contacto borrarCliente(long dni) {
-        Iterator<Contacto> it = DirectorioTelefonico.listaContacto.iterator();
+    public static Contacto borrarCliente(long dni) {
+        Iterator<Contacto> it = directorio.values().iterator();
+        
         while (it.hasNext()) {
             Contacto c = it.next();
             if (c.getDni() == dni) {
@@ -104,7 +105,9 @@ public class Directorio {
             }
         }
         return null; // si no se encuentra
-    }
+    } 
+    
+    
 
     // Agregar ciudad
     public static boolean agregarCiudad(String ciudad) {

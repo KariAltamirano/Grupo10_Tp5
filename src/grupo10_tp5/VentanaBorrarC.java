@@ -3,29 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package grupo10_tp5;
+
 import javax.swing.JOptionPane;
+
 /**
  *
- * @author Grupo10 TP5
- * Altamirano Karina
- * Gianfranco Antonacci Matías
- * Bequis Marcos Ezequiel
- * Dave  Natalia
- * Quiroga Dorzan Alejo
- * Franzinni Tatiana
+ * @author Grupo10 TP5 Altamirano Karina Gianfranco Antonacci Matías Bequis
+ * Marcos Ezequiel Dave Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class VentanaBorrarC extends javax.swing.JInternalFrame {
-    
-     private DirectorioTelefonico directorio;
 
-    
+    private DirectorioTelefonico directorio;
 
     public VentanaBorrarC(DirectorioTelefonico directorio) {
-    initComponents();
-    this.directorio = directorio;
-}
+        initComponents();
+        this.directorio = directorio;
+    }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,26 +78,30 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             long dni = Long.parseLong(txtDni.getText());
-            Contacto eliminado = directorio.borrarCliente(dni);
+            Contacto eliminado = Directorio.borrarCliente(dni);
 
             if (eliminado != null) {
-                JOptionPane.showMessageDialog(this, 
-                    "Cliente borrado: " + eliminado.getNombre() + " " + eliminado.getApellido());
+                JOptionPane.showMessageDialog(this,
+                        "Cliente borrado: " + eliminado.getNombre() + " " + eliminado.getApellido());
             } else {
-                JOptionPane.showMessageDialog(this, 
-                    "No se encontró cliente con ese DNI", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "No se encontró cliente con ese DNI", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             txtDni.setText(""); // limpiar campo
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, 
-                "Debe ingresar un número de DNI válido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Debe ingresar un número de DNI válido", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    
-
-
+        
+        // Comprobacion de los contactos agregados
+        for (int i = 0; i < 30; i++) {
+            System.out.println("");
+        }
+        System.out.println("Agregando clientes...\n");
+        Directorio.mostrarContactos();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
 
