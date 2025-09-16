@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package grupo10_tp5;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author Grupo10 TP5
@@ -15,14 +15,17 @@ package grupo10_tp5;
  * Franzinni Tatiana
  */
 public class VentanaBorrarC extends javax.swing.JInternalFrame {
+    
+     private DirectorioTelefonico directorio;
 
-    /**
-     * Creates new form VentanaBorrarC
-     */
-    public VentanaBorrarC() {
-        initComponents();
-    }
+    
 
+    public VentanaBorrarC(DirectorioTelefonico directorio) {
+    initComponents();
+    this.directorio = directorio;
+}
+
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,25 +35,81 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txtDni = new javax.swing.JTextField();
+        btnBorrar = new javax.swing.JButton();
+
         setClosable(true);
         setIconifiable(true);
         setTitle("| Borrar Cliente |");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Ingrese el DNI:");
+
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(btnBorrar)))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBorrar)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        // TODO add your handling code here:
+         try {
+            long dni = Long.parseLong(txtDni.getText());
+            Contacto eliminado = directorio.borrarCliente(dni);
+
+            if (eliminado != null) {
+                JOptionPane.showMessageDialog(this, 
+                    "Cliente borrado: " + eliminado.getNombre() + " " + eliminado.getApellido());
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "No se encontró cliente con ese DNI", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            txtDni.setText(""); // limpiar campo
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, 
+                "Debe ingresar un número de DNI válido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
+
+
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
 }
