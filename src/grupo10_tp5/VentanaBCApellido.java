@@ -4,11 +4,14 @@
  */
 package grupo10_tp5;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,13 +28,8 @@ private DefaultTableModel modelo=new DefaultTableModel(){
         return false;
     }
 };
-private DefaultListModel<String> model(){
-    DefaultListModel<String>model = (DefaultListModel<String>)jListaResultados.getModel();
-    return null;
-
-};
-
-
+DefaultListModel<String> modeloLista = new DefaultListModel<>();
+private Set<String> apellidosEncontrados =new TreeSet<>();
  
     /**
      * Creates new form VentanaBCApellido
@@ -39,7 +37,8 @@ private DefaultListModel<String> model(){
     public VentanaBCApellido() {
         initComponents();
         armarCabecera();
-        limpiarJList();
+        configurarListaResultados();
+       
     }
 
     /**
@@ -87,10 +86,10 @@ private DefaultListModel<String> model(){
         ));
         jScrollPane1.setViewportView(jTableDatos);
 
-        jListaResultados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jListaResultados.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListaResultadosValueChanged(evt);
+            }
         });
         jScrollPane2.setViewportView(jListaResultados);
 
@@ -171,6 +170,19 @@ private DefaultListModel<String> model(){
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jListaResultadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaResultadosValueChanged
+        // TODO add your handling code here:
+        
+        if (evt.getValueIsAdjusting()){
+            return;
+        }
+        String apellidoSeleccionado = jListaResultados.getSelectedValue();
+            if (apellidoSeleccionado !=null){
+                mostrarContactosPorApellido(apellidoSeleccionado);
+    
+    }
+    }//GEN-LAST:event_jListaResultadosValueChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -199,16 +211,33 @@ private DefaultListModel<String> model(){
         int filas= jTableDatos.getRowCount()-1;
         for(int f=filas;f>=0;f--){
             modelo.removeRow(f);
+       }
+   }
+        
+        private void configurarListaResultados(){
+            jListaResultados.setModel(modeloLista);
+        }
+        
+        private void mostrarContactosPorApellido(String apellido){
+            borrarFilas();
+            
+            for (Contacto c : DirectorioTelefonico.listaContacto) {
+            
+                if (c.getApellido().equalsIgnoreCase(apellido)) {
+                    
+                    modelo.addRow(new Object[]{
+                            
+                            c.getDni(),
+                            c.getApellido(),
+                            c.getNombre(),
+                            c.getDireccion(),
+                            c.getCiudad(),
+                            c.getTelefono()
+                            
+                    });
+                }
+            
+            }
         
         }
-    
-    }
-
-  private void limpiarJList(){
-  if (jListaResultados.getModel() instanceof DefaultListModel){
-        DefaultListModel<String> model = (DefaultListModel<String>) jListaResultados.getModel();
-        model.clear();
-        }
-  
-  }
 }

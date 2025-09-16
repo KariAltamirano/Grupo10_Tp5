@@ -82,10 +82,10 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
             }
         });
 
-        jListTelefono.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jListTelefono.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListTelefonoValueChanged(evt);
+            }
         });
         jScrollPane2.setViewportView(jListTelefono);
 
@@ -106,7 +106,7 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel2)
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                                    .addComponent(jtTelefono)
                                     .addComponent(jScrollPane2))
                                 .addGap(66, 66, 66)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +125,7 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
                                     .addComponent(jtNombre)
                                     .addComponent(jtCiudad)
                                     .addComponent(jtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,6 +177,10 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
         
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jListTelefonoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListTelefonoValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jListTelefonoValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
