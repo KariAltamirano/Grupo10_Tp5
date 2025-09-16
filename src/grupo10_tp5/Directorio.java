@@ -6,6 +6,7 @@
 package grupo10_tp5;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -96,7 +97,7 @@ public class Directorio {
 
     public static Contacto borrarCliente(long dni) {
         Iterator<Contacto> it = directorio.values().iterator();
-        
+
         while (it.hasNext()) {
             Contacto c = it.next();
             if (c.getDni() == dni) {
@@ -105,9 +106,11 @@ public class Directorio {
             }
         }
         return null; // si no se encuentra
-    } 
-    
-    
+    }
+
+    public static Collection<Contacto> getTodosLosContactos() {
+        return directorio.values();
+    }
 
     // Agregar ciudad
     public static boolean agregarCiudad(String ciudad) {
@@ -139,14 +142,15 @@ public class Directorio {
         }
 
     }
-    
-    public Contacto buscarPorApellido(String apellido){
-    
-            for (Contacto c: directorio.values()){
-                if (c.getApellido().equalsIgnoreCase(apellido))
-            return c;
-            } 
+
+    public Contacto buscarPorApellido(String apellido) {
+
+        for (Contacto c : directorio.values()) {
+            if (c.getApellido().equalsIgnoreCase(apellido)) {
+                return c;
+            }
+        }
         return null;
-      }
+    }
 
 }
