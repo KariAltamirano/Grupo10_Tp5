@@ -86,6 +86,11 @@ public class frmAgregar extends javax.swing.JInternalFrame {
 
         label_domicilio.setText("Domicilio:");
 
+        txt_dni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_dniActionPerformed(evt);
+            }
+        });
         txt_dni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_dniKeyReleased(evt);
@@ -333,6 +338,10 @@ public class frmAgregar extends javax.swing.JInternalFrame {
             txt_dni.setText("");
         }
     }//GEN-LAST:event_txt_dniKeyReleased
+
+    private void txt_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_dniActionPerformed
 
     private void llenarComboCiudad() {
         //Vacia el combobox

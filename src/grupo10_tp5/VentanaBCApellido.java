@@ -17,15 +17,16 @@ import javax.swing.table.DefaultTableModel;
  * Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class VentanaBCApellido extends javax.swing.JInternalFrame {
-private DefaultTableModel modelo=new DefaultTableModel(){
 
-    public boolean isCellEditable(int f, int c){
-        return false;
-    }
-};
-DefaultListModel<String> modeloLista = new DefaultListModel<>();
-private Set<String> apellidosEncontrados =new TreeSet<>();
- 
+    private DefaultTableModel modelo = new DefaultTableModel() {
+
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+    DefaultListModel<String> modeloLista = new DefaultListModel<>();
+    private Set<String> apellidosEncontrados = new TreeSet<>();
+
     /**
      * Creates new form VentanaBCApellido
      */
@@ -33,7 +34,7 @@ private Set<String> apellidosEncontrados =new TreeSet<>();
         initComponents();
         armarCabecera();
         configurarListaResultados();
-       
+
     }
 
     /**
@@ -70,13 +71,13 @@ private Set<String> apellidosEncontrados =new TreeSet<>();
 
         jTableDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "DNI", "Apellido", "Nombre", "Direccion", "Ciudad", "Telefono"
             }
         ));
         jScrollPane1.setViewportView(jTableDatos);
@@ -113,7 +114,7 @@ private Set<String> apellidosEncontrados =new TreeSet<>();
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,27 +138,27 @@ private Set<String> apellidosEncontrados =new TreeSet<>();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtApellidoKeyReleased
-    
+
         // TODO add your handling code here:
-               borrarFilas();
-               String textoApellido = jtApellido.getText().trim();
-               //Solo buscar si hay texto ingresado
-               if (!textoApellido.isEmpty()){
-                for (Contacto c:DirectorioTelefonico.listaContacto){
-        
-                        if(c.getApellido().toLowerCase().startsWith(textoApellido.toLowerCase())){
-                
-                                 modelo.addRow(new Object []{
-                                        c.getDni(),
-                                        c.getApellido(),
-                                        c.getNombre(),
-                                        c.getDireccion(),
-                                        c.getCiudad(),
-                                        c.getTelefono()
-                                 });
-                        }
+        borrarFilas();
+        String textoApellido = jtApellido.getText().trim();
+        //Solo buscar si hay texto ingresado
+        if (!textoApellido.isEmpty()) {
+            for (Contacto c : DirectorioTelefonico.listaContacto) {
+
+                if (c.getApellido().toLowerCase().startsWith(textoApellido.toLowerCase())) {
+
+                    modelo.addRow(new Object[]{
+                        c.getDni(),
+                        c.getApellido(),
+                        c.getNombre(),
+                        c.getDireccion(),
+                        c.getCiudad(),
+                        c.getTelefono()
+                    });
                 }
-               }
+            }
+        }
     }//GEN-LAST:event_jtApellidoKeyReleased
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -167,15 +168,15 @@ private Set<String> apellidosEncontrados =new TreeSet<>();
 
     private void jListaResultadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListaResultadosValueChanged
         // TODO add your handling code here:
-        
-        if (evt.getValueIsAdjusting()){
+
+        if (evt.getValueIsAdjusting()) {
             return;
         }
         String apellidoSeleccionado = jListaResultados.getSelectedValue();
-            if (apellidoSeleccionado !=null){
-                mostrarContactosPorApellido(apellidoSeleccionado);
-    
-    }
+        if (apellidoSeleccionado != null) {
+            mostrarContactosPorApellido(apellidoSeleccionado);
+
+        }
     }//GEN-LAST:event_jListaResultadosValueChanged
 
 
@@ -190,49 +191,42 @@ private Set<String> apellidosEncontrados =new TreeSet<>();
     private javax.swing.JTextField jtApellido;
     // End of variables declaration//GEN-END:variables
 
-    private void armarCabecera(){
+    private void armarCabecera() {
 
-    modelo.addColumn("DNI");
-    modelo.addColumn("Apellido");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Dirección");
-    modelo.addColumn("Ciudad");
-    modelo.addColumn("Teléfono"); 
-    jTableDatos.setModel(modelo);
+        modelo.addColumn("DNI");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Ciudad");
+        modelo.addColumn("Teléfono");
+        jTableDatos.setModel(modelo);
     }
- 
-        private void borrarFilas(){
-    
-        int filas= jTableDatos.getRowCount()-1;
-        for(int f=filas;f>=0;f--){
+
+    private void borrarFilas() {
+        int filas = jTableDatos.getRowCount() - 1;
+        for (int f = filas; f >= 0; f--) {
             modelo.removeRow(f);
-       }
-   }
-        
-        private void configurarListaResultados(){
-            jListaResultados.setModel(modeloLista);
         }
-        
-        private void mostrarContactosPorApellido(String apellido){
-            borrarFilas();
-            
-            for (Contacto c : DirectorioTelefonico.listaContacto) {
-            
-                if (c.getApellido().equalsIgnoreCase(apellido)) {
-                    
-                    modelo.addRow(new Object[]{
-                            
-                            c.getDni(),
-                            c.getApellido(),
-                            c.getNombre(),
-                            c.getDireccion(),
-                            c.getCiudad(),
-                            c.getTelefono()
-                            
-                    });
-                }
-            
+    }
+
+    private void configurarListaResultados() {
+        jListaResultados.setModel(modeloLista);
+    }
+
+    private void mostrarContactosPorApellido(String apellido) {
+        borrarFilas();
+
+        for (Contacto c : DirectorioTelefonico.listaContacto) {
+            if (c.getApellido().equalsIgnoreCase(apellido)) {
+                modelo.addRow(new Object[]{
+                    c.getDni(),
+                    c.getApellido(),
+                    c.getNombre(),
+                    c.getDireccion(),
+                    c.getCiudad(),
+                    c.getTelefono()
+                });
             }
-        
         }
+    }
 }

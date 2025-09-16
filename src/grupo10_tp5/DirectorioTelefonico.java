@@ -26,25 +26,12 @@ public static TreeSet <Contacto> listaContacto=new TreeSet<>();
     public DirectorioTelefonico() {
         initComponents();
         setLocationRelativeTo(null);
-        cargarContactos();
         
+        //Precarga de contactos
+        Directorio.preCargarContactos();
         //Precarga ciudades
-        Directorio.precargarCiudades();
+        Directorio.preCargarCiudades();
     }
-   
-
-public Contacto borrarCliente(long dni) {
-    Iterator<Contacto> it = listaContacto.iterator();
-    while (it.hasNext()) {
-        Contacto c = it.next();
-        if (c.getDni() == dni) {
-            it.remove(); // elimina de forma segura durante la iteración
-            return c; // devuelve el contacto eliminado
-        }
-    }
-    return null; // si no se encuentra
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -295,11 +282,4 @@ public Contacto borrarCliente(long dni) {
         //4)Posiciona en el centro
         frame.setLocation(x,y);
     }
-    private void cargarContactos(){
-    listaContacto.add(new Contacto(33214569, "Carlos", "Oviedo", "San Luis", "San Juan 123", 266425896));
-    listaContacto.add(new Contacto(35698741, "Agustina", "Paez", "San Luis", "Santa Fe23", 266498745));
-        
-    }
-
-  
 }

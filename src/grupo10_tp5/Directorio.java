@@ -7,6 +7,7 @@ package grupo10_tp5;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -23,16 +24,21 @@ public class Directorio {
 
     private static TreeMap<Long, Contacto> directorio = new TreeMap<>();
     private static TreeSet<String> ciudades = new TreeSet<>();
-    private static TreeSet<String> apellidos= new TreeSet<>();
+    private static TreeSet<String> apellidos = new TreeSet<>();
 
-    public Directorio(TreeMap<Long, Contacto> directorio, TreeSet<String> ciudades, TreeSet <String> apellidos) {
+    public Directorio(TreeMap<Long, Contacto> directorio, TreeSet<String> ciudades, TreeSet<String> apellidos) {
         this.directorio = directorio;
         this.ciudades = ciudades;
-        this.apellidos= apellidos;
+        this.apellidos = apellidos;
     }
 
     public Directorio() {
 
+    }
+
+    public static void preCargarContactos() {
+        Directorio.agregarContacto(2664795210L, (new Contacto(35698741L, "Agustina", "Paez", "San Luis", "Santa Fe 23", 2664795210L)));
+        Directorio.agregarContacto(2664258969L, (new Contacto(33214569L, "Carlos", "Oviedo", "San Luis", "San Juan 123", 2664258969L)));
     }
 
     public static boolean agregarContacto(Long telefono, Contacto contacto) {
@@ -59,7 +65,6 @@ public class Directorio {
         }
         return telefonos;
     }
-  
 
     public ArrayList<Contacto> buscarContactos(String ciudad) {
         ArrayList<Contacto> contactos = new ArrayList<>();
@@ -83,10 +88,22 @@ public class Directorio {
     public static void mostrarContactos() {
         int i = 0;
         for (Map.Entry<Long, Contacto> entry : directorio.entrySet()) {
-            System.out.println("--------------- Contacto " + (i+1) + " ---------------");
+            System.out.println("--------------- Contacto " + (i + 1) + " ---------------");
             System.out.println(entry.getValue().datosContacto());
             i++;
         }
+    }
+
+    public Contacto borrarCliente(long dni) {
+        Iterator<Contacto> it = DirectorioTelefonico.listaContacto.iterator();
+        while (it.hasNext()) {
+            Contacto c = it.next();
+            if (c.getDni() == dni) {
+                it.remove(); // elimina de forma segura durante la iteración
+                return c; // devuelve el contacto eliminado
+            }
+        }
+        return null; // si no se encuentra
     }
 
     // Agregar ciudad
@@ -109,7 +126,7 @@ public class Directorio {
         return ciudades.isEmpty();
     }
 
-    public static void precargarCiudades() {
+    public static void preCargarCiudades() {
         // Precarga de ciudades
         String[] ciudades = {"Mendoza", "San Luis", "San Juan", "Buenos Aires"};
         boolean a;
@@ -119,13 +136,14 @@ public class Directorio {
         }
 
     }
-   /* public Contacto buscarPorApellido(String apellido){
+    
+    public Contacto buscarPorApellido(String apellido){
     
             for (Contacto c: directorio.values()){
                 if (c.getApellido().equalsIgnoreCase(apellido))
             return c;
             } 
         return null;
-      }*/
-    
+      }
+
 }
