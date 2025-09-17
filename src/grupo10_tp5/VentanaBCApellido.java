@@ -4,9 +4,11 @@
  */
 package grupo10_tp5;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +27,7 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         }
     };
     DefaultListModel<String> modeloLista = new DefaultListModel<>();
+    JList<String> lista = new JList<>(modeloLista);
 
     /**
      * Creates new form VentanaBCApellido
@@ -33,7 +36,6 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         configurarListaResultados();
-        llenarListaTelefonos();
     }
 
     /**
@@ -142,16 +144,18 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
 
     //Jtext Apellido:
     private void jtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtApellidoKeyReleased
+        borrarFilas();
+        int aux = 0;
         String textoApellido = jtApellido.getText().trim();
-        // TODO add your handling code here:
-        
         if(textoApellido.isEmpty()){
-            borrarFilas();
-            
+            llenarListaApellidos();
+            aux = 0;
+            return;
         }
         
         //Solo buscar si hay texto ingresado
-        if (!textoApellido.isEmpty()) {
+        if (!textoApellido.isEmpty()) {            
+            /*
             for (Contacto c : Directorio.getTodosLosContactos()) {
                 if (c.getApellido().toLowerCase().startsWith(textoApellido.toLowerCase())) {
                     modelo.addRow(new Object[]{
@@ -164,12 +168,15 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
                     });
                 }
             }
-            
-            for (int i = 0; i < modeloLista.getSize(); i++) {
+            */
+            for (Contacto c : Directorio.getTodosLosContactos()) {
+                String apell = c.getApellido().toLowerCase();
                 
+                if(apell.isEmpty() || apell.startsWith(textoApellido)){
+                    modeloLista.addElement(c.getApellido());
+                    aux++;
+                }
             }
-            
-            
         }
     }//GEN-LAST:event_jtApellidoKeyReleased
 
@@ -187,7 +194,6 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         String apellidoSeleccionado = jListaResultados.getSelectedValue();
         if (apellidoSeleccionado != null) {
             mostrarContactosPorApellido(apellidoSeleccionado);
-
         }
     }//GEN-LAST:event_jListaResultadosValueChanged
 
@@ -219,7 +225,7 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         for (int f = filas; f >= 0; f--) {
             modelo.removeRow(f);
         } */
-        modelo.setRowCount(0);
+        //modelo.setRowCount(0);
         modeloLista.clear();
     }
   
@@ -227,10 +233,15 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
         jListaResultados.setModel(modeloLista);
     }
 
-    private void mostrarContactosPorApellido(String apellido) {
-        borrarFilas();
-        
+    private void mostrarContactosPorApellido(String apellido) {        
         for (Contacto c : Directorio.getTodosLosContactos()) {
+            
+            
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                if(apellido.equalsIgnoreCase((String)modelo.getValueAt(i, 1))){
+                    return;                
+                }
+            }
             if (c.getApellido().equalsIgnoreCase(apellido)) {
                 modelo.addRow(new Object[]{
                     c.getDni(),
@@ -240,18 +251,17 @@ public class VentanaBCApellido extends javax.swing.JInternalFrame {
                     c.getCiudad(),
                     c.getTelefono()
                 });
-            }
+            }           
         }
     }
     
-    public void llenarListaTelefonos(){
+    public void llenarListaApellidos(){
         int aux = 0;
-        System.out.println("-----------Duplicar Lista-----------");
-        System.out.println(Directorio.sizeMap());
         for (Contacto c : Directorio.getTodosLosContactos() ) {
             modeloLista.add(aux, c.getApellido());
             aux++;
-            System.out.println("["+modeloLista+"]");
         }
     }
+    
+    
 }
