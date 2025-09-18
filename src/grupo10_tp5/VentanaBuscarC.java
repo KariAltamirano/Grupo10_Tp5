@@ -4,23 +4,26 @@
  */
 package grupo10_tp5;
 
+import java.util.Map;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 /**
  *
- * @author Grupo10 TP5
- * Altamirano Karina
- * Gianfranco Antonacci Matías
- * Bequis Marcos Ezequiel
- * Dave  Natalia
- * Quiroga Dorzan Alejo
- * Franzinni Tatiana
+ * @author Grupo10 TP5 Altamirano Karina Gianfranco Antonacci Matías Bequis
+ * Marcos Ezequiel Dave Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class VentanaBuscarC extends javax.swing.JInternalFrame {
+
+    DefaultListModel<String> modeloLista = new DefaultListModel<>();
+    JList<String> lista = new JList<>(modeloLista);
 
     /**
      * Creates new form VentanaBuscarCliente
      */
     public VentanaBuscarC() {
         initComponents();
+        llenarListTelefono();
     }
 
     /**
@@ -88,6 +91,11 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
             }
         });
 
+        jListTelefono.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListTelefonoValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(jListTelefono);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,15 +183,34 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
-        
+
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTelefonoKeyReleased
-         // TODO add your handling code here:
-         
-     
+        // TODO add your handling code here:
+        borrarFilas();
+        int aux = 0;
+        String textoTelefono = jtTelefono.getText().trim();
+        if (textoTelefono.isEmpty()) {
+            llenarListTelefono();
+            aux = 0;
+            return;
+
+
     }//GEN-LAST:event_jtTelefonoKeyReleased
+
+    private void jListTelefonoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListTelefonoValueChanged
+        // TODO add your handling code here:
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
+        String telefonoSeleccionado = jListTelefono.getSelectedValue();
+        if (telefonoSeleccionado != null) {
+            mostrarContactoPorTelefono(telefonoSeleccionado);
+        }
+
+    }//GEN-LAST:event_jListTelefonoValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,4 +231,39 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void borrarFilas() {
+        modeloLista.clear();
+    }
+
+    private void configurarListTelefono() {
+        jListTelefono.setModel(modeloLista);
+    }
+
+    public void llenarListTelefono() {
+        int aux = 0;
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+            modeloLista.add(aux, Long.toString(c.getTelefono()));
+            aux++;
+        }
+    }
+
+    private void mostrarContactoPorTelefono(String telefono) {
+        long telefono1 = Long.parseLong(telefono);
+
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+
+            if (telefono.equals(telefono1)) {
+
+                jtDNI.setText(Long.toString(c.getDni()));
+                jtApellido.setText(c.getApellido());
+                jtNombre.setText(c.getNombre());
+                jtCiudad.setText(c.getCiudad());
+                jtDomicilio.setText(c.getDireccion());
+
+            }
+        }
+
+    }
+
 }
