@@ -23,6 +23,7 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
      */
     public VentanaBuscarC() {
         initComponents();
+        configurarListTelefono();
         llenarListTelefono();
     }
 
@@ -190,18 +191,28 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
     private void jtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTelefonoKeyReleased
         // TODO add your handling code here:
         borrarFilas();
-        int aux = 0;
+
         String textoTelefono = jtTelefono.getText().trim();
         if (textoTelefono.isEmpty()) {
             llenarListTelefono();
-            aux = 0;
             return;
 
+        }
 
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+            String telefono = Long.toString(c.getTelefono());
+
+            if (telefono.startsWith(textoTelefono)) {
+                modeloLista.addElement(telefono);
+
+            }
+
+        }
     }//GEN-LAST:event_jtTelefonoKeyReleased
 
     private void jListTelefonoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListTelefonoValueChanged
         // TODO add your handling code here:
+
         if (evt.getValueIsAdjusting()) {
             return;
         }
