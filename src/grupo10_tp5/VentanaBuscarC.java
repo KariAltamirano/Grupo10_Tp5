@@ -260,17 +260,26 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
     }
 
     private void mostrarContactoPorTelefono(String telefono) {
-        long telefono1 = Long.parseLong(telefono);
+        long telefonoBuscado; 
+        try{
+        
+            telefonoBuscado = Long.parseLong(telefono);
+        
+        } catch (NumberFormatException e){
+            System.err.print("Número de teléfono inválido" + telefono);
+        return;
+                }
 
         for (Contacto c : Directorio.getTodosLosContactos()) {
 
-            if (telefono.equals(telefono1)) {
+            if (c.getTelefono()==telefonoBuscado) {
 
                 jtDNI.setText(Long.toString(c.getDni()));
                 jtApellido.setText(c.getApellido());
                 jtNombre.setText(c.getNombre());
                 jtCiudad.setText(c.getCiudad());
                 jtDomicilio.setText(c.getDireccion());
+                break;
 
             }
         }
