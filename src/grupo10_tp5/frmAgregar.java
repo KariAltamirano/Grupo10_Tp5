@@ -177,6 +177,11 @@ public class frmAgregar extends javax.swing.JInternalFrame {
 
         label_telefono.setText("Teléfono:");
 
+        txt_telefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telefonoActionPerformed(evt);
+            }
+        });
         txt_telefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_telefonoKeyReleased(evt);
@@ -294,6 +299,13 @@ public class frmAgregar extends javax.swing.JInternalFrame {
         }
         System.out.println("Agregando clientes...\n");
         Directorio.mostrarContactos();
+        
+        // Limpiar campos
+        txt_dni.setText("");
+        txt_nombre.setText("");
+        txt_apellido.setText("");
+        txt_domicilio.setText("");
+        txt_telefono.setText("");
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_agregarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarCiudadActionPerformed
@@ -342,6 +354,10 @@ public class frmAgregar extends javax.swing.JInternalFrame {
     private void txt_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_dniActionPerformed
+
+    private void txt_telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telefonoActionPerformed
 
     private void llenarComboCiudad() {
         //Vacia el combobox
