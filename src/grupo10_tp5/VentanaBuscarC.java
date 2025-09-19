@@ -260,15 +260,17 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
     }
 
     private void mostrarContactoPorTelefono(String telefono) {
-        long telefonoBuscado; 
-        try{
+        long telefonoBuscado = Long.parseLong(telefono); 
+       
+        //lo comento porque el mensaje de error no se muestra deespués
+        /* try{
         
             telefonoBuscado = Long.parseLong(telefono);
         
         } catch (NumberFormatException e){
             System.err.print("Número de teléfono inválido" + telefono);
         return;
-                }
+                }*/
 
         for (Contacto c : Directorio.getTodosLosContactos()) {
 
