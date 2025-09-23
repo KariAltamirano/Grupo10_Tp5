@@ -4,11 +4,11 @@
  */
 package grupo10_tp5;
 
-import java.awt.List;
+
 import java.util.TreeSet;
-import javax.swing.DefaultListModel;
+
 import javax.swing.JInternalFrame;
-import java.util.Iterator;
+
 /**
  *
  * @author Grupo10 TP5
@@ -32,6 +32,16 @@ public static TreeSet <Contacto> listaContacto=new TreeSet<>();
         //Precarga ciudades
         Directorio.preCargarCiudades();
     }
+   public Contacto buscarCliente(long dni) {
+    for (Contacto c : DirectorioTelefonico.listaContacto) {
+        if (c.getDni() == dni) {
+            return c; // Devuelve el objeto Contacto si lo encuentra
+        }
+    }
+    return null; // Devuelve null si no lo encuentra
+}
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

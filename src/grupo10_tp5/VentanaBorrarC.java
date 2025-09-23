@@ -4,7 +4,11 @@
  */
 package grupo10_tp5;
 
+   import java.util.Set;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +17,90 @@ import javax.swing.JOptionPane;
  */
 public class VentanaBorrarC extends javax.swing.JInternalFrame {
 
-    private DirectorioTelefonico directorio;
 
-    public VentanaBorrarC(DirectorioTelefonico directorio) {
-        initComponents();
-        this.directorio = directorio;
+    private DirectorioTelefonico directorio;
+    private DefaultListModel<String> modeloLista;
+    private DefaultTableModel modeloTabla;
+   
+ public VentanaBorrarC (DirectorioTelefonico directorio) {
+    initComponents();
+    this.directorio = directorio;
+    
+    // Inicializo modelos
+    modeloLista = new DefaultListModel<>();
+    listaDni.setModel(modeloLista);
+
+    modeloTabla = new DefaultTableModel();
+    armarCabecera();
+    tablaClientes.setModel(modeloTabla);
+ }
+    // Cargo los DNI en la lista
+    private void llenarListaDni() {
+    modeloLista.clear();
+    
+    
+    for (Contacto c : DirectorioTelefonico.listaContacto) {
+        // Dentro del bucle, obtienes el DNI del objeto Contacto
+        // y lo conviertes a String para agregarlo al modelo de lista.
+        modeloLista.addElement(String.valueOf(c.getDni()));
     }
+
+    
+
+    // Evento cuando selecciono un DNI
+    listaDni.addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            // Obtienes el valor seleccionado de la lista como un String
+            String dniString = listaDni.getSelectedValue();
+
+            if (dniString != null && !dniString.isEmpty()) {
+                try {
+                    // Convierte el String a Long
+                    Long dni = Long.parseLong(dniString);
+                    // Ahora llamas al método con el tipo de dato correcto
+                    mostrarCliente(dni);
+                } catch (NumberFormatException ex) {
+                    // Manejar el error si el texto no es un número válido
+                    System.err.println("El valor seleccionado no es un número válido.");
+                }
+            }
+        }
+    });
+   }    
+    
+    
+
+    // Crea cabecera de la tabla
+    private void armarCabecera() {
+        modeloTabla.addColumn("DNI");
+        modeloTabla.addColumn("Apellido");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Direccion");
+        modeloTabla.addColumn("Ciudad");
+        modeloTabla.addColumn("Telefono");
+    }
+
+    private void mostrarCliente(Long dni) {
+    // 1. Limpia la tabla
+    modeloTabla.setRowCount(0);
+    
+    // 2. Llama al método buscarCliente para encontrar el contacto
+    Contacto c = directorio.buscarCliente(dni);
+    
+    // 3. Verifica si el contacto fue encontrado (no es null)
+    if (c != null) {
+        // 4. Si lo encuentra, añade una nueva fila a la tabla
+        modeloTabla.addRow(new Object[]{
+            c.getDni(),
+            c.getApellido(),
+            c.getNombre(),
+            c.getDireccion(),
+            c.getCiudad(),
+            c.getTelefono()
+        });
+    }
+}
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,21 +111,61 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaDni = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaClientes = new javax.swing.JTable();
         btnBorrar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("| Borrar Cliente |");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Ingrese el DNI:");
+        jLabel2.setText("DNI:");
 
-        btnBorrar.setText("Borrar");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
+                txtDniActionPerformed(evt);
+            }
+        });
+
+        listaDni.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listaDni);
+
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "DNI", "Apellido", "Nombre", "Direccion", "Ciudad", "Telefono"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaClientes);
+
+        btnBorrar.setText("Borrar Cliente/s");
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -52,62 +174,67 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(btnBorrar)))
-                .addContainerGap(147, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBorrar)
+                        .addGap(169, 169, 169)
+                        .addComponent(btnSalir))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnBorrar)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBorrar)
+                    .addComponent(btnSalir))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
-        try {
-            long dni = Long.parseLong(txtDni.getText());
-            Contacto eliminado = Directorio.borrarCliente(dni);
+    }//GEN-LAST:event_txtDniActionPerformed
 
-            if (eliminado != null) {
-                JOptionPane.showMessageDialog(this,
-                        "Cliente borrado: " + eliminado.getNombre() + " " + eliminado.getApellido());
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "No se encontró cliente con ese DNI", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-            txtDni.setText(""); // limpiar campo
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this,
-                    "Debe ingresar un número de DNI válido", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        // Comprobacion de los contactos agregados
-        for (int i = 0; i < 30; i++) {
-            System.out.println("");
-        }
-        System.out.println("Agregando clientes...\n");
-        Directorio.mostrarContactos();
-    }//GEN-LAST:event_btnBorrarActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listaDni;
+    private javax.swing.JTable tablaClientes;
     private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
+
 }
