@@ -4,23 +4,31 @@
  */
 package grupo10_tp5;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author Grupo10 TP5
- * Altamirano Karina
- * Gianfranco Antonacci Matías
- * Bequis Marcos Ezequiel
- * Dave  Natalia
- * Quiroga Dorzan Alejo
- * Franzinni Tatiana
+ * @author Grupo10 TP5 Altamirano Karina Gianfranco Antonacci Matías Bequis
+ * Marcos Ezequiel Dave Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class VentanaBCCiudad extends javax.swing.JInternalFrame {
+    
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
 
     /**
      * Creates new form VentanaBCCiudad
      */
     public VentanaBCCiudad() {
         initComponents();
+        armarCabecera();
+        cargarCombo();
     }
 
     /**
@@ -32,25 +40,180 @@ public class VentanaBCCiudad extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jCBCiudades = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTDatos = new javax.swing.JTable();
+        jBSalir = new javax.swing.JButton();
+
         setClosable(true);
         setIconifiable(true);
         setTitle("| Buscar cliente por Ciudad |");
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Buscar Clientes de Directorio por Ciudad");
+
+        jCBCiudades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBCiudadesActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("Ciudades:");
+
+        jTDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTDatos);
+
+        jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCBCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBSalir)
+                .addGap(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jBSalir)
+                .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCBCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBCiudadesActionPerformed
+        // TODO add your handling code here:
+        String ciudadSeleccionada = (String) jCBCiudades.getSelectedItem();
+        
+        modelo.setRowCount(0);
+        
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+            // Verifica si el contacto pertenece a la ciudad seleccionada
+            if (c.getCiudad().equalsIgnoreCase(ciudadSeleccionada)) {
+                modelo.addRow(new Object[]{
+                    c.getDni(),
+                    c.getApellido(),
+                    c.getNombre(),
+                    c.getDireccion(),
+                    c.getCiudad(),
+                    c.getTelefono()
+                });
+            }
+        }
+    }//GEN-LAST:event_jCBCiudadesActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+
+    }//GEN-LAST:event_jBSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBSalir;
+    private javax.swing.JComboBox<String> jCBCiudades;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTDatos;
     // End of variables declaration//GEN-END:variables
+
+    private void armarCabecera() {
+        
+        modelo.addColumn("DNI");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Ciudad");
+        modelo.addColumn("Teléfono");
+        jTDatos.setModel(modelo);
+    }
+    
+    private void borrarFilas() {
+        int filas = jTDatos.getRowCount() - 1;
+        for (int f = filas; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+        modelo.setRowCount(0);
+    }
+    
+    private void mostrarContactosPorCiudades(String ciudad) {
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+            
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                if (ciudad.equalsIgnoreCase((String) modelo.getValueAt(i, 1))) {
+                    return;
+                }
+            }
+            if (c.getCiudad().equalsIgnoreCase(ciudad)) {
+                modelo.addRow(new Object[]{
+                    c.getDni(),
+                    c.getApellido(),
+                    c.getNombre(),
+                    c.getDireccion(),
+                    c.getCiudad(),
+                    c.getTelefono()
+                });
+            }
+        }
+    }
+
+    private void cargarCombo() {
+        Set<String> ciudades = new HashSet<>();
+       
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+            ciudades.add(c.getCiudad());
+        }
+        jCBCiudades.removeAllItems();
+        jCBCiudades.addItem(" ");
+        for (String ciudad : ciudades) {
+            jCBCiudades.addItem(ciudad);
+        }
+        
+    }
+    
 }
