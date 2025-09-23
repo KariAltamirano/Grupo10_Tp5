@@ -7,6 +7,10 @@ package grupo10_tp5;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -251,26 +255,16 @@ public class VentanaBuscarC extends javax.swing.JInternalFrame {
         jListTelefono.setModel(modeloLista);
     }
 
-    public void llenarListTelefono() {
-        int aux = 0;
-        for (Contacto c : Directorio.getTodosLosContactos()) {
-            modeloLista.add(aux, Long.toString(c.getTelefono()));
-            aux++;
-        }
+    public void llenarListTelefono() { 
+        modeloLista.clear();
+        
+        for (Contacto c : Directorio.getTodosLosContactos()) { 
+            modeloLista.addElement(Long.toString(c.getTelefono()));
+                    }
     }
 
     private void mostrarContactoPorTelefono(String telefono) {
         long telefonoBuscado = Long.parseLong(telefono); 
-       
-        //lo comento porque el mensaje de error no se muestra deespués
-        /* try{
-        
-            telefonoBuscado = Long.parseLong(telefono);
-        
-        } catch (NumberFormatException e){
-            System.err.print("Número de teléfono inválido" + telefono);
-        return;
-                }*/
 
         for (Contacto c : Directorio.getTodosLosContactos()) {
 
