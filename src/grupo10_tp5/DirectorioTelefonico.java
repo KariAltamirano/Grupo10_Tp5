@@ -212,7 +212,7 @@ public static TreeSet <Contacto> listaContacto=new TreeSet<>();
     private void jmiBorrarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBorrarCActionPerformed
         jdEscritorio.removeAll();
         jdEscritorio.repaint();
-        VentanaBorrarC ventanaBorrarC = new VentanaBorrarC(this);
+        VentanaBorrarC ventanaBorrarC = new VentanaBorrarC();
         mostrarCentrado(ventanaBorrarC);
         ventanaBorrarC.setVisible(true);
         jdEscritorio.moveToFront(ventanaBorrarC);
