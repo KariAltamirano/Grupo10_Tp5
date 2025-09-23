@@ -15,37 +15,44 @@ import javax.swing.table.DefaultTableModel;
  * Marcos Ezequiel Dave Natalia Quiroga Dorzan Alejo Franzinni Tatiana
  */
 public class VentanaBorrarC extends javax.swing.JInternalFrame {
-
-
-   private DefaultTableModel modeloTabla;
-
+ 
+    private DefaultTableModel modeloTabla;
+    DefaultListModel<String> modeloLista = new DefaultListModel<>();
     public VentanaBorrarC() {
+        initComponents();
         modeloTabla = new DefaultTableModel();
-        armarCabecera(); // crea las columnas de la tabla
-        tablaClientes.setModel(modeloTabla); // vinculamos el modelo con la JTable
-        llenarListaDNI(); // cargamos la lista de DNIs al iniciar
+        armarCabecera();
+        tablaClientes.setModel(modeloTabla);
+        llenarListaDNI();
 
-
-        // Evento: cuando selecciono un DNI en la lista
-        listaDni.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                Long dni = listaDni.getSelectedValue();
-                if (dni != null) {
-                    mostrarCliente(dni);
+    // Evento: cuando selecciono un DNI en la lista
+    listaDni.addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            String dniStr = listaDni.getSelectedValue(); // Obtenemos String
+            if (dniStr != null) {
+                try {
+                    Long dni = Long.valueOf(dniStr); // Convertimos a Long
+                    mostrarCliente(dni); // Ahora funciona
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "El DNI seleccionado no es válido",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        });
-    }
+        }
+    });
 
+    }
     // Carga todos los DNIs de la lista de contactos en el JList
     private void llenarListaDNI() {
-    DefaultListModel<Long> modeloLista = new DefaultListModel<>();
-    for (Contacto c : DirectorioTelefonico.listaContacto) {
-        modeloLista.addElement(c.getDni());
+       
+       for (Contacto c : Directorio.getTodosLosContactos()) {
+            modeloLista.addElement(Long.toString(c.getDni())); // Convertimos Long a String
+
+
+        }
+        listaDni.setModel(modeloLista);
     }
-    listaDni.setModel(modeloLista);
-}
- //holasdsadeqwuidfhewui9fhwe9if0we
 
     // Arma la cabecera de la tabla
     private void armarCabecera() {
@@ -61,7 +68,7 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
     private void mostrarCliente(Long dni) {
         modeloTabla.setRowCount(0); // Limpio la tabla
 
-        for (Contacto c : DirectorioTelefonico.listaContacto) {
+        for (Contacto c : Directorio.getTodosLosContactos()) {
             if (c.getDni() == dni) {
                 modeloTabla.addRow(new Object[]{
                     c.getDni(),
@@ -101,9 +108,9 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
 
         jLabel2.setText("DNI:");
 
-        txtDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDniActionPerformed(evt);
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDniKeyReleased(evt);
             }
         });
 
@@ -162,13 +169,12 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
                         .addGap(169, 169, 169)
                         .addComponent(btnSalir))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
+                                .addGap(14, 14, 14)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,10 +202,6 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDniActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -208,16 +210,38 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
         // Verificar si hay un DNI seleccionado en la lista
-        Long dniSeleccionado = listaDni.getSelectedValue();
-       Contacto eliminado = null;
-        for (Contacto c : DirectorioTelefonico.listaContacto) {
-        if (c.getDni() == dniSeleccionado) {
-            eliminado = c;
-            break;
+      // Obtener el DNI seleccionado como String y convertir a Long
+    String dniStr = listaDni.getSelectedValue();
+    Long dniSeleccionado = null;
+
+    if (dniStr != null) {
+        try {
+            dniSeleccionado = Long.valueOf(dniStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                "El DNI seleccionado no es válido",
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return; // salir si no es válido
+        }
+    } else {
+        JOptionPane.showMessageDialog(this,
+                "Debe seleccionar un DNI para borrar.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+        Contacto eliminado = null;
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+            if (c.getDni() == dniSeleccionado) { // compara valores primitivos
+        eliminado = c;
+        break;
+
+        
         }
     }
-        if (eliminado != null) {
-        DirectorioTelefonico.listaContacto.remove(eliminado);
+
+    if (eliminado != null) {
+        Directorio.getTodosLosContactos().remove(eliminado);
         JOptionPane.showMessageDialog(this,
                 "Cliente borrado: " + eliminado.getNombre() + " " + eliminado.getApellido(),
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -232,6 +256,31 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    private void txtDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyReleased
+        // TODO add your handling code here:
+      modeloLista.clear(); // Limpiamos la lista antes de filtrar
+
+    String textoDni = txtDni.getText().trim(); // Tomamos el texto ingresado
+    if (textoDni.isEmpty()) {
+        // Si el campo está vacío, mostramos todos los DNIs
+        for (Contacto c : Directorio.getTodosLosContactos()) {
+            modeloLista.addElement(Long.toString(c.getDni()));
+        }
+        return;
+    }
+
+    // Filtramos los DNIs que comienzan con el texto ingresado
+    for (Contacto c : Directorio.getTodosLosContactos()) {
+        String dniStr = Long.toString(c.getDni());
+        if (dniStr.startsWith(textoDni)) {
+            modeloLista.addElement(dniStr);
+        }
+    }
+
+       
+
+    }//GEN-LAST:event_txtDniKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
@@ -243,5 +292,4 @@ public class VentanaBorrarC extends javax.swing.JInternalFrame {
     private javax.swing.JTable tablaClientes;
     private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
-
 }
